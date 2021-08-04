@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherSyncClient", "WeatherSyncClient\WeatherSyncClient.csproj", "{9690DDD0-E21F-4267-8E76-F07C9C9E470E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherSyncServer", "WeatherSyncServer\WeatherSyncServer.csproj", "{B88A8EB2-0078-4673-955A-AA5C08876551}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9690DDD0-E21F-4267-8E76-F07C9C9E470E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9690DDD0-E21F-4267-8E76-F07C9C9E470E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9690DDD0-E21F-4267-8E76-F07C9C9E470E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9690DDD0-E21F-4267-8E76-F07C9C9E470E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B88A8EB2-0078-4673-955A-AA5C08876551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B88A8EB2-0078-4673-955A-AA5C08876551}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B88A8EB2-0078-4673-955A-AA5C08876551}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B88A8EB2-0078-4673-955A-AA5C08876551}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
