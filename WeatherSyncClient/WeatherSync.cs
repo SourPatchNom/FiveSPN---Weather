@@ -223,7 +223,9 @@ public class WeatherSync : BaseScript
             Debug.WriteLine("SPNWeather: Initializing");
             TriggerServerEvent("SPNWeatherCheckPerms");
             EventHandlers.Add("playerSpawned", new Action<Vector3>(OnPlayerSpawned));
-            EventHandlers["SPNWeatherClientRx"] += new Action<string, string>(RecieveWeather);
+            
+            EventHandlers["WeatherSync:ClientUpdate"] += new Action<string, string>(RecieveWeather);
+            
             EventHandlers["SPNWeatherClientPerms"] += new Action<bool>(RegisterWxCommands);
             EventHandlers["SPNWeatherClientReply"] += new Action<string>(RecieveReply);
         }
