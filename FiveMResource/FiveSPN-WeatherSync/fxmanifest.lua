@@ -11,6 +11,7 @@ weather_api_key '' -- Put your API key here!
 --weather_city 'Hollywood' -- Use this to use a city name.
 --weather_id '5357527' -- Use this to use a city id number.
 weather_zip '90210' -- Use this to use a zip code.
+refresh_rate '5' -- Time in minutes between weather updates.
 
 games { 'gta5' }
 

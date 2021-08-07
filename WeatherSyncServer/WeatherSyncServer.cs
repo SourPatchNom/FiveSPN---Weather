@@ -13,7 +13,7 @@ namespace WeatherSyncServer
     public class WeatherSyncServer : BaseScript
     {
         private DateTime _lastUpdateTime = DateTime.Now;
-        private int _refreshRate = 1;
+        private int _refreshRate;
         private bool _currentlyUpdating;
         private bool _forceWeather;
         private bool _forceUpdate = true;
@@ -26,10 +26,11 @@ namespace WeatherSyncServer
         
         public WeatherSyncServer()
         {
-            ServerLogger.SendServerLogMessage(new LogMessage("FiveSPN - WeatherSync", LogMessageSeverity.Verbose, "Initializing WeatherSync!"));
+            ServerLogger.SendServerLogMessage(new LogMessage("FiveSPN - WeatherSync", LogMessageSeverity.Info, "Initializing WeatherSync!"));
             string weatherLocationCity = API.GetResourceMetadata(API.GetCurrentResourceName(), "weather_city", 0) ?? "";
             string weatherLocationId = API.GetResourceMetadata(API.GetCurrentResourceName(), "weather_id", 0) ?? "";
             string weatherLocationZip = API.GetResourceMetadata(API.GetCurrentResourceName(), "weather_zip", 0) ?? "";
+            if(!int.TryParse(API.GetResourceMetadata(API.GetCurrentResourceName(), "refresh_rate", 0), out _refreshRate)) _refreshRate = 5;
             
             if (weatherLocationCity != "")
             {
