@@ -36,13 +36,16 @@
           <HintPath>..\packages\CitizenFX.Core.Client.1.0.4324\lib\net45\CitizenFX.Core.Client.dll</HintPath>
           <Private>True</Private>
         </Reference>
+        <Reference Include="FiveSpnLoggerClientLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\..\FiveSPN - Logger\FiveMResource\FiveSPN-Logger\FiveSpnLoggerClientLibrary.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="WeatherSync.cs" />
+        <Compile Include="WeatherSyncClient.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
