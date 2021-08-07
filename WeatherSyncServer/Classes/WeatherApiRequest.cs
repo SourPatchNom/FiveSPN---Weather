@@ -68,7 +68,7 @@ namespace WeatherSyncServer.Classes
                 if (responseData.weather.Count != 0)
                 {
                     weatherResult = WeatherApi.GetGtaWeatherFromId(responseData.weather[0].id);
-                    ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Info,$"Weather received for {location}! Setting server weather to {weatherResult}"));
+                    ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather received for {location}! Setting server weather to {weatherResult}"));
                 } else throw new Exception("Weather result contains no weather data");
             }
             catch (Exception e)
