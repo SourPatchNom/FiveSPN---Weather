@@ -51,15 +51,17 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Classes\WeatherApi.cs" />
-        <Compile Include="Http\HttpHelper.cs" />
-        <Compile Include="WeatherSync.cs" />
+        <Compile Include="Classes\WeatherApiRequest.cs" />
+        <Compile Include="Enums\WeatherApiCallType.cs" />
+        <Compile Include="HttpHelper.cs" />
+        <Compile Include="WeatherSyncServer.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Enums" />
+      <Folder Include="Http" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

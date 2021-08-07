@@ -1,71 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AGHMatti.Http;
-using FiveSpnLoggerServerLibrary;
-using FiveSpnLoggerServerLibrary.Classes;
-using FiveSpnLoggerServerLibrary.Enums;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 
 namespace WeatherSyncServer.Classes
 {
-    public class WeatherApiRequest
-    {
-        public static WeatherApiRequest Instance { get; } = new WeatherApiRequest();
-
-        static WeatherApiRequest()
-        {
-
-        }
-        private WeatherApiRequest()
-        {
-            ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Info,"WeatherAPI request system initialized."));
-        }
-        
-        /// <summary>
-        /// Requests the weather for a given location, either in zip or city name.
-        /// </summary>
-        /// <param name="location">The value for the location requested.</param>
-        /// <param name="apiKey">The api key for WeatherAPI</param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        public async Task<string> GetGtaWeatherForLocation(string location, string apiKey)
-        {
-            string weatherResult = "CLEAR";
-            if (apiKey == "NONE")
-            {
-                ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Info,"The WeatherAPI key not set, unable to get weather! Set the WeatherAPI key in the resource manifest!"));
-                return "CLEAR";
-            }
-            await Task.Delay(1000);
-            ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Info,$"Requesting weather for {location}!"));
-            WeatherApi.WeatherResponseData responseData = new WeatherApi.WeatherResponseData();
-            try
-            {
-                var request = new Request();
-                string requestString = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=" + apiKey;
-                var response = await request.Http(requestString);
-                var json = response.content;
-                //dynamic latest = JObject.Parse(json);
-                responseData = JsonConvert.DeserializeObject<WeatherApi.WeatherResponseData>(json);
-                if (responseData == null) throw new Exception("Weather result is NULL");
-                if (responseData.weather.Count != 0)
-                {
-                    weatherResult = WeatherApi.GetGtaWeatherFromId(responseData.weather.First().id);
-                    ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Info,$"Weather received for {location}! Setting server weather to {weatherResult}"));
-                } else throw new Exception("Weather result contains no weather data");
-            }
-            catch (Exception e)
-            {
-                ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Error,$"Unable to process WeatherAPI request!"));
-                ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Error,e.Message));
-                return "CLEAR";
-            }
-            return weatherResult;
-        }
-    }
-    
     public static class WeatherApi
     {
 
