@@ -65,7 +65,7 @@ namespace WeatherSyncServer.Classes
                 case 600: //light snow
                 case 615: //light rain and snow
                 case 620: //light shower snow
-                    return "SNOWLIGHT";
+                    return "SNOW";
                 case 601: //snow
                 case 611: //sleet
                 case 612: //shower sleet
