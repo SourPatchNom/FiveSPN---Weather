@@ -16,6 +16,7 @@ namespace WeatherSyncServer
         private int _refreshRate;
         private bool _currentlyUpdating;
         private bool _forceWeather;
+        private string _forceWeatherType = "CLEAR";
         private bool _forceUpdate = true;
         private string _forceWeatherSource = "";
         private readonly object _weatherLock = new object();
@@ -69,18 +70,30 @@ namespace WeatherSyncServer
             EventHandlers["WeatherSync:SetLocationCity"] += new Action<Player, string>(SetLocationCity);
             EventHandlers["WeatherSync:SetRefresh"] += new Action<Player, int>(SetRefresh);
             EventHandlers["WeatherSync:RequestUpdate"] += new Action<Player>(RequestUpdate);
-            EventHandlers["WeatherSync:CheckPerms"] += new Action<Player>(CheckPerms);
             
             Tick += OnTick;
         }
 
         private void SetOverride([FromSource]Player player, string newWeather)
         {
+            if (!CheckPermsNow(player))
+            {
+                ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather override requested to be {newWeather} by {player.Name} but player is not an admin."));
+                return;
+            }
             lock (_weatherLock)
             {
-                _forceWeather = newWeather != "RESET";
+                if (newWeather == "RESET")
+                {
+                    _forceWeatherType = "CLEAR";
+                    _forceWeather = false;
+                }
+                else
+                {
+                    _forceWeatherType = newWeather;
+                    _forceWeather = true;
+                }
                 _forceWeatherSource = player.Name;
-                _serverWeather = newWeather;
                 _forceUpdate = true;
                 ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather is now set to {_serverWeather} by {player.Name}."));
                 TriggerClientEvent(player,"WeatherSync:ReplyToClient",$"Weather set to {newWeather}, standby for weather change!");
@@ -89,6 +102,11 @@ namespace WeatherSyncServer
         
         private void SetLocationZip([FromSource]Player player, string newLocation)
         {
+            if (!CheckPermsNow(player))
+            {
+                ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather location requested to be {newLocation} by {player.Name} but player is not an admin."));
+                return;
+            }
             lock (_weatherLock)
             {
                 _weatherLocation = newLocation;
@@ -101,6 +119,11 @@ namespace WeatherSyncServer
         
         private void SetLocationId([FromSource]Player player, string newLocation)
         {
+            if (!CheckPermsNow(player))
+            {
+                ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather location requested to be {newLocation} by {player.Name} but player is not an admin."));
+                return;
+            }
             lock (_weatherLock)
             {
                 _weatherLocation = newLocation;
@@ -112,6 +135,11 @@ namespace WeatherSyncServer
         }
         private void SetLocationCity([FromSource]Player player, string newLocation)
         {
+            if (!CheckPermsNow(player))
+            {
+                ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather location requested to be {newLocation} by {player.Name} but player is not an admin."));
+                return;
+            }
             lock (_weatherLock)
             {
                 _weatherLocation = newLocation;
@@ -121,21 +149,32 @@ namespace WeatherSyncServer
                 TriggerClientEvent(player,"WeatherSync:ReplyToClient",$"Weather location set to {newLocation}. If this is a good location the weather should update shortly.");
             }
         }
+
+        private static bool CheckPermsNow([FromSource]Player player)
+        {
+            ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Admin permission check for {player.Name} | {player.Handle}."));
+            return API.IsPlayerAceAllowed(player.Handle, "WeatherAdmin");
+        }
         
         private static void CheckPerms([FromSource]Player player)
         {
-            ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Admin permission check requested by {player.Name}."));
-            TriggerClientEvent(player, "WeatherSync:ApplyClientPerms", API.IsPlayerAceAllowed(player.Handle, "group.admin"));
+            //ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Admin permission check requested by {player.Name}."));
+            //TriggerClientEvent(player, "WeatherSync:ApplyClientPerms", API.IsPlayerAceAllowed(player.ToString(), "group.admin"));
         }
 
         private void RequestUpdate([FromSource]Player player)
         {
             ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather update requested by {player.Name}."));
-            TriggerClientEvent("WeatherSync:ClientUpdate", _serverWeather, _weatherLocation);
+            TriggerClientEvent("WeatherSync:UpdateClientWx", _serverWeather, _forceWeather ? _forceWeatherSource : _weatherLocation);
         }
 
         private void SetRefresh([FromSource]Player player, int newRefreshRate)
         {
+            if (!CheckPermsNow(player))
+            {
+                ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather refresh rate update requested to be {newRefreshRate} by {player.Name} but player is not an admin."));
+                return;
+            }
             lock (_weatherLock)
             {
                 _refreshRate = newRefreshRate > 1 ? newRefreshRate : 1;
@@ -148,7 +187,7 @@ namespace WeatherSyncServer
         {
             if (((DateTime.Now - _lastUpdateTime).Minutes > _refreshRate || _forceUpdate) && !_currentlyUpdating)
             {
-                string newWeather = _serverWeather; 
+                string newWeather = ""; 
                 lock (_weatherLock)
                 {
                     _currentlyUpdating = true;
@@ -162,14 +201,15 @@ namespace WeatherSyncServer
                 }
                 else
                 {
-                    ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather is overriden by {_forceWeatherSource} and set to {_serverWeather}."));
+                    newWeather = _forceWeatherType;
+                    ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather is overriden by {_forceWeatherSource} and set to {_forceWeatherType}."));
                 }
 
                 if (newWeather != _serverWeather)
                 {
                     _serverWeather = newWeather;
-                    ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather is now set to {_serverWeather}, which is synced from {_weatherLocation}."));
-                    TriggerClientEvent("WeatherSync:UpdateClientWx", _serverWeather, _weatherLocation);
+                    ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Verbose,$"Weather is now set to {_serverWeather}, which is synced from {(_forceWeather ? _forceWeatherSource : _weatherLocation)}."));
+                    TriggerClientEvent("WeatherSync:UpdateClientWx", _serverWeather, _forceWeather ? _forceWeatherSource : _weatherLocation);
                 }
                 
                 lock (_weatherLock)
