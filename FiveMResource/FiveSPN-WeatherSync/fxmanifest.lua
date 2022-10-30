@@ -23,8 +23,3 @@ client_script {
 	"WeatherSyncClient.net.dll",
 }
 
-files { 
-	"FiveSpnLoggerServerLibrary.dll",
-	"FiveSpnLoggerClientLibrary.dll",
-}
-

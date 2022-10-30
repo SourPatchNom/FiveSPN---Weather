@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using CitizenFX.Core;
 using CitizenFX.Core.Native;
-using FiveSpnLoggerClientLibrary;
-using FiveSpnLoggerClientLibrary.Classes;
-using FiveSpnLoggerClientLibrary.Enums;
 
 namespace WeatherSyncClient
 {
@@ -214,7 +211,7 @@ public class WeatherSyncClient : BaseScript
 
         public WeatherSyncClient()
         {
-            ClientLogger.SendClientLogMessage(new LogMessage("WeatherSync", LogMessageSeverity.Verbose,"Initializing"));
+            TriggerEvent("FiveSPN-LogToClient", "FiveSpn-WeatherSync",4,"Initializing");
             TriggerServerEvent("WeatherSync:CheckPerms");
             EventHandlers.Add("playerSpawned", new Action<Vector3>(OnPlayerSpawned));
             EventHandlers["WeatherSync:UpdateClientWx"] += new Action<string, string>(ReceiveWeather);
