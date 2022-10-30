@@ -23,3 +23,4 @@ client_script {
 	"WeatherSyncClient.net.dll",
 }
 
+dependancy 'FiveSPN-Logger'
