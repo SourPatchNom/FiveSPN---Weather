@@ -1,0 +1,6 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=F_003A_005CNew_0020FiveM_0020Repos_005CFiveSPN_0020_002D_0020Logger_005CFiveMResource_005CFiveSPN_002DLogger_005CFiveSpnLoggerClientLibrary_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=F_003A_005CNew_0020FiveM_0020Repos_005CFiveSPN_0020_002D_0020Logger_005CFiveMResource_005CFiveSPN_002DLogger_005CFiveSpnLoggerServerLibrary_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;Assembly Path="F:\New FiveM Repos\FiveSPN - WeatherSync\FiveMResource\FiveSPN-WeatherSync\WeatherSyncServer.net.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
