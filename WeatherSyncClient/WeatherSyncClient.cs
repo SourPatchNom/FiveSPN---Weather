@@ -9,7 +9,7 @@ public class WeatherSyncClient : BaseScript
     {
         private Weather _wxCurrent = Weather.Clear;
         private Weather _wxNew = Weather.Clear;
-        private object _wxLock = new object();
+        private readonly object _wxLock = new object();
         private string _wxLocation = "NONE";
         private bool _wxIsChanging;
 

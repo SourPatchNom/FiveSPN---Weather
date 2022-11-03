@@ -24,7 +24,7 @@ namespace WeatherSyncServer
         
         public WeatherSyncServer()
         {
-            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",3, "Initializing WeatherSync!");
+            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-Weather",3, "Initializing Weather Service!");
             string weatherLocationCity = API.GetResourceMetadata(API.GetCurrentResourceName(), "weather_city", 0) ?? "";
             string weatherLocationId = API.GetResourceMetadata(API.GetCurrentResourceName(), "weather_id", 0) ?? "";
             string weatherLocationZip = API.GetResourceMetadata(API.GetCurrentResourceName(), "weather_zip", 0) ?? "";
