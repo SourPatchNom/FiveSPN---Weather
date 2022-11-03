@@ -69,6 +69,6 @@
     </Target>
     -->
     <PropertyGroup>
-        <PostBuildEvent>copy /y "$(TargetPath)" "$(SolutionDir)FiveMResource\FiveSPN-WeatherSync\"</PostBuildEvent>
+        <PostBuildEvent>copy /y "$(TargetPath)" "$(SolutionDir)FiveMResource\FiveSPN-Weather\"</PostBuildEvent>
     </PropertyGroup>
 </Project>
