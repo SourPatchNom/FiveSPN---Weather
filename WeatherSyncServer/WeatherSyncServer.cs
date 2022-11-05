@@ -52,7 +52,7 @@ namespace WeatherSyncServer
                 return;
             }
             
-            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",5,$"Resource variable read, server weather is now set to {_weatherLocation}.");
+            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",3,$"Resource variable read, server weather is now set to {_weatherLocation}.");
             _weatherApiKey = API.GetResourceMetadata(API.GetCurrentResourceName(), "weather_api_key", 0) ?? "";
             
             if (_weatherApiKey.Length == 0)

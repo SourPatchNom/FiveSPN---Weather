@@ -16,7 +16,7 @@ namespace WeatherSyncServer.Classes
         }
         private WeatherApiRequest()
         {
-            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",3,"WeatherAPI request system initialized.");
+            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,"WeatherAPI request system initialized.");
             //ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Info,"WeatherAPI request system initialized."));
         }
         
@@ -37,7 +37,7 @@ namespace WeatherSyncServer.Classes
                 return "CLEAR";
             }
             await Delay(1000);
-            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",3,$"Requesting weather for {location}!");
+            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Requesting weather for {location}!");
             try
             {
                 var request = new Request();
@@ -65,7 +65,7 @@ namespace WeatherSyncServer.Classes
                 if (responseData.weather.Count != 0)
                 {
                     weatherResult = WeatherApi.GetGtaWeatherFromId(responseData.weather[0].id);
-                    TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",3,$"Weather received for {location}! Setting server weather to {weatherResult}");
+                    TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather received for {location}! Setting server weather to {weatherResult}");
                 } else throw new Exception("Weather result contains no weather data");
             }
             catch (Exception e)
