@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AGHMatti.Http;
 using CitizenFX.Core;
 using Newtonsoft.Json;
 using WeatherSyncServer.Enums;
