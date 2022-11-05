@@ -119,7 +119,6 @@ public class WeatherSyncClient : BaseScript
         /// <summary>
         /// Register all the weather commands based on if a member has admin permissions or not.
         /// </summary>
-        /// <param name="isAdmin">Does the player have permission to set the server variables.</param>
         private static void RegisterWxCommands()
         {
             API.RegisterCommand("RefreshWeather", new Action<int, List<object>, string>((source, args, raw) =>
