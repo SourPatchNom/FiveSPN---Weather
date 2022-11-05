@@ -150,7 +150,7 @@ namespace WeatherSyncServer
         private static bool CheckPermsNow([FromSource]Player player)
         {
             TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Admin permission check for {player.Name} | {player.Handle}.");
-            return API.IsPlayerAceAllowed(player.Handle, "WeatherAdmin");
+            return (API.IsPlayerAceAllowed(player.Handle, "WeatherAdmin") || API.IsPlayerAceAllowed(player.Handle, "ServerAdmin"));
         }
         
         private static void CheckPerms([FromSource]Player player)
