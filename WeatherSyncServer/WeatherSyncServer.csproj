@@ -8,7 +8,7 @@
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>WeatherSyncServer</RootNamespace>
-        <AssemblyName>WeatherSyncServer</AssemblyName>
+        <AssemblyName>WeatherSyncServer.net</AssemblyName>
         <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
@@ -36,9 +36,6 @@
           <HintPath>..\packages\CitizenFX.Core.Server.1.0.4324\lib\net45\CitizenFX.Core.Server.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="FiveSpnLoggerServerLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\..\FiveSPN - Logger\FiveMResource\FiveSPN-Logger\FiveSpnLoggerServerLibrary.dll</HintPath>
-        </Reference>
         <Reference Include="Microsoft.CSharp" />
         <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
           <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -51,15 +48,17 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Classes\WeatherApi.cs" />
-        <Compile Include="Http\HttpHelper.cs" />
-        <Compile Include="WeatherSync.cs" />
+        <Compile Include="Classes\WeatherApiRequest.cs" />
+        <Compile Include="Enums\WeatherApiCallType.cs" />
+        <Compile Include="HttpHelper.cs" />
+        <Compile Include="WeatherSyncServer.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Enums" />
+      <Folder Include="Http" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -69,5 +68,7 @@
     <Target Name="AfterBuild">
     </Target>
     -->
-
+    <PropertyGroup>
+        <PostBuildEvent>copy /y "$(TargetPath)" "$(SolutionDir)FiveMResource\FiveSPN-Weather\"</PostBuildEvent>
+    </PropertyGroup>
 </Project>

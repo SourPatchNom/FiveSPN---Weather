@@ -8,7 +8,7 @@
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>WeatherSyncClient</RootNamespace>
-        <AssemblyName>WeatherSyncClient</AssemblyName>
+        <AssemblyName>WeatherSyncClient.net</AssemblyName>
         <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
@@ -42,7 +42,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="WeatherSync.cs" />
+        <Compile Include="WeatherSyncClient.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
@@ -56,5 +56,7 @@
     <Target Name="AfterBuild">
     </Target>
     -->
-
+    <PropertyGroup>
+        <PostBuildEvent>copy /y "$(TargetPath)" "$(SolutionDir)FiveMResource\FiveSPN-Weather\"</PostBuildEvent>
+    </PropertyGroup>
 </Project>
