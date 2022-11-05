@@ -1,12 +1,12 @@
-﻿using CitizenFX.Core;
-using CitizenFX.Core.Native;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using CitizenFX.Core;
+using CitizenFX.Core.Native;
+using Newtonsoft.Json;
 
-namespace AGHMatti.Http
+namespace WeatherSyncServer
 {
     public struct RequestResponse
     {
