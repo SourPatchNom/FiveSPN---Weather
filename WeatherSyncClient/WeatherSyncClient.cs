@@ -31,14 +31,14 @@ public class WeatherSyncClient : BaseScript
             {
                 if (World.Weather != _wxNew)
                 {
-                    Debug.WriteLine("SPNWeather: Changing weather to " + _wxNew.ToString() + " from " + World.Weather.ToString() + " which is synced from " + _wxLocation);
+                    TriggerEvent("FiveSPN-LogToClient", "FiveSpn-WeatherSync",4,"Changing weather to " + _wxNew.ToString() + " from " + World.Weather.ToString() + " which is synced from " + _wxLocation);
                     _wxIsChanging = true;
                     _wxCurrent = _wxNew;
                     World.TransitionToWeather(_wxCurrent, 45.0f);
                 }
                 else
                 {
-                    Debug.WriteLine("SPNWeather: No change needed as the wanted weather of " + _wxNew.ToString() + " is already " + World.Weather.ToString() + " which is synced from " + _wxLocation);
+                    TriggerEvent("FiveSPN-LogToClient", "FiveSpn-WeatherSync",4,"No change needed as the wanted weather of " + _wxNew.ToString() + " is already " + World.Weather.ToString() + " which is synced from " + _wxLocation);
                 }
             }
         }
@@ -210,7 +210,7 @@ public class WeatherSyncClient : BaseScript
 
         public WeatherSyncClient()
         {
-            TriggerEvent("FiveSPN-LogToClient", "FiveSpn-WeatherSync",4,"Initializing");
+            TriggerEvent("FiveSPN-LogToClient", "FiveSpn-WeatherSync",3,"Initializing");
             TriggerServerEvent("WeatherSync:CheckPerms");
             EventHandlers.Add("playerSpawned", new Action<Vector3>(OnPlayerSpawned));
             EventHandlers["WeatherSync:UpdateClientWx"] += new Action<string, string>(ReceiveWeather);
