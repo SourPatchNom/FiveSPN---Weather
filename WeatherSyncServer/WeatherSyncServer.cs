@@ -24,7 +24,7 @@ namespace WeatherSyncServer
         
         public WeatherSyncServer()
         {
-            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-Weather",3, "Initializing Weather Service!");
+            TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),3, "Initializing!");
             string weatherLocationCity = API.GetResourceMetadata(API.GetCurrentResourceName(), "weather_city", 0) ?? "";
             string weatherLocationId = API.GetResourceMetadata(API.GetCurrentResourceName(), "weather_id", 0) ?? "";
             string weatherLocationZip = API.GetResourceMetadata(API.GetCurrentResourceName(), "weather_zip", 0) ?? "";
@@ -48,16 +48,16 @@ namespace WeatherSyncServer
             
             if (_weatherLocation.Length == 0)
             {
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",1,$"Weather location is not set in the resource manifest, unable to start the resource!");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),1,$"Weather location is not set in the resource manifest, unable to start the resource!");
                 return;
             }
             
-            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",3,$"Resource variable read, server weather is now set to {_weatherLocation}.");
+            TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Server weather is now set to {_weatherLocation}.");
             _weatherApiKey = API.GetResourceMetadata(API.GetCurrentResourceName(), "weather_api_key", 0) ?? "";
             
             if (_weatherApiKey.Length == 0)
             {
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",1,$"Weather API key is not set in the resource manifest, unable to start the resource!");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),1,$"Weather API key is not set in the resource manifest, unable to start the resource!");
                 return;
             }
             
@@ -75,7 +75,7 @@ namespace WeatherSyncServer
         {
             if (!CheckPermsNow(player))
             {
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather override requested to be {newWeather} by {player.Name} but player is not an admin.");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather override requested to be {newWeather} by {player.Name} but player is not an admin.");
                 return;
             }
             lock (_weatherLock)
@@ -92,7 +92,7 @@ namespace WeatherSyncServer
                 }
                 _forceWeatherSource = player.Name;
                 _forceUpdate = true;
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather is now set to {_serverWeather} by {player.Name}.");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather is now set to {_serverWeather} by {player.Name}.");
                 TriggerClientEvent(player,"WeatherSync:ReplyToClient",$"Weather set to {newWeather}, standby for weather change!");
             }
         }
@@ -101,7 +101,7 @@ namespace WeatherSyncServer
         {
             if (!CheckPermsNow(player))
             {
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather location requested to be {newLocation} by {player.Name} but player is not an admin.");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather location requested to be {newLocation} by {player.Name} but player is not an admin.");
                 return;
             }
             lock (_weatherLock)
@@ -109,7 +109,7 @@ namespace WeatherSyncServer
                 _weatherLocation = newLocation;
                 _forceUpdate = true;
                 _weatherApiCallType = WeatherApiCallType.ZipCode;
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather location is now set to {newLocation} by {player.Name}.");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather location is now set to {newLocation} by {player.Name}.");
                 TriggerClientEvent(player,"WeatherSync:ReplyToClient",$"Weather location set to {newLocation}. If this is a good location the weather should update shortly.");
             }
         }
@@ -118,7 +118,7 @@ namespace WeatherSyncServer
         {
             if (!CheckPermsNow(player))
             {
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather location requested to be {newLocation} by {player.Name} but player is not an admin.");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather location requested to be {newLocation} by {player.Name} but player is not an admin.");
                 return;
             }
             lock (_weatherLock)
@@ -126,7 +126,7 @@ namespace WeatherSyncServer
                 _weatherLocation = newLocation;
                 _forceUpdate = true;
                 _weatherApiCallType = WeatherApiCallType.CityId;
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather location is now set to {newLocation} by {player.Name}.");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather location is now set to {newLocation} by {player.Name}.");
                 TriggerClientEvent(player,"WeatherSync:ReplyToClient",$"Weather location set to {newLocation}. If this is a good location the weather should update shortly.");
             }
         }
@@ -134,7 +134,7 @@ namespace WeatherSyncServer
         {
             if (!CheckPermsNow(player))
             {
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather location requested to be {newLocation} by {player.Name} but player is not an admin.");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather location requested to be {newLocation} by {player.Name} but player is not an admin.");
                 return;
             }
             lock (_weatherLock)
@@ -142,26 +142,26 @@ namespace WeatherSyncServer
                 _weatherLocation = newLocation;
                 _forceUpdate = true;
                 _weatherApiCallType = WeatherApiCallType.CityName;
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather location is now set to {newLocation} by {player.Name}.");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather location is now set to {newLocation} by {player.Name}.");
                 TriggerClientEvent(player,"WeatherSync:ReplyToClient",$"Weather location set to {newLocation}. If this is a good location the weather should update shortly.");
             }
         }
 
         private static bool CheckPermsNow([FromSource]Player player)
         {
-            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Admin permission check for {player.Name} | {player.Handle}.");
+            TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Admin permission check for {player.Name} | {player.Handle}.");
             return (API.IsPlayerAceAllowed(player.Handle, "WeatherAdmin") || API.IsPlayerAceAllowed(player.Handle, "ServerAdmin"));
         }
         
         private static void CheckPerms([FromSource]Player player)
         {
-            //TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Admin permission check requested by {player.Name}."));
+            //TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Admin permission check requested by {player.Name}."));
             //TriggerClientEvent(player, "WeatherSync:ApplyClientPerms", API.IsPlayerAceAllowed(player.ToString(), "group.admin"));
         }
 
         private void RequestUpdate([FromSource]Player player)
         {
-            TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather update requested by {player.Name}.");
+            TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather update requested by {player.Name}.");
             TriggerClientEvent("WeatherSync:UpdateClientWx", _serverWeather, _forceWeather ? _forceWeatherSource : _weatherLocation);
         }
 
@@ -169,13 +169,13 @@ namespace WeatherSyncServer
         {
             if (!CheckPermsNow(player))
             {
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather refresh rate update requested to be {newRefreshRate} by {player.Name} but player is not an admin.");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather refresh rate update requested to be {newRefreshRate} by {player.Name} but player is not an admin.");
                 return;
             }
             lock (_weatherLock)
             {
                 _refreshRate = newRefreshRate > 1 ? newRefreshRate : 1;
-                TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather refresh rate is now set to {newRefreshRate} by {player.Name}.");
+                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather refresh rate is now set to {newRefreshRate} by {player.Name}.");
                 TriggerClientEvent(player,"WeatherSync:ReplyToClient",$"Weather refresh minutes set to {newRefreshRate}.");
             }
         }
@@ -190,7 +190,7 @@ namespace WeatherSyncServer
                     _currentlyUpdating = true;
                     _lastUpdateTime = DateTime.Now;
                     _forceUpdate = false;
-                    TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,"Updating the weather.");
+                    TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,"Updating the weather.");
                 }
                 if (!_forceWeather)
                 {
@@ -199,13 +199,13 @@ namespace WeatherSyncServer
                 else
                 {
                     newWeather = _forceWeatherType;
-                    TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather is overriden by {_forceWeatherSource} and set to {_forceWeatherType}.");
+                    TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather is overriden by {_forceWeatherSource} and set to {_forceWeatherType}.");
                 }
 
                 if (newWeather != _serverWeather)
                 {
                     _serverWeather = newWeather;
-                    TriggerEvent("FiveSPN-ServerLogToServer", "FiveSpn-WeatherSync",4,$"Weather is now set to {_serverWeather}, which is synced from {(_forceWeather ? _forceWeatherSource : _weatherLocation)}.");
+                    TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather is now set to {_serverWeather}, which is synced from {(_forceWeather ? _forceWeatherSource : _weatherLocation)}.");
                     TriggerClientEvent("WeatherSync:UpdateClientWx", _serverWeather, _forceWeather ? _forceWeatherSource : _weatherLocation);
                 }
                 
