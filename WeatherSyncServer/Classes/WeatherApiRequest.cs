@@ -17,7 +17,7 @@ namespace WeatherSyncServer.Classes
         }
         private WeatherApiRequest()
         {
-            TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,"WeatherAPI request system initialized.");
+            TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),4,"WeatherAPI request system initialized.");
             //ServerLogger.SendServerLogMessage(new LogMessage("WeatherSync",LogMessageSeverity.Info,"WeatherAPI request system initialized."));
         }
         
@@ -34,11 +34,11 @@ namespace WeatherSyncServer.Classes
             string weatherResult;
             if (apiKey == "NONE")
             {
-                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),0,"The WeatherAPI key not set, unable to get weather! Set the WeatherAPI key in the resource manifest!");
+                TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),0,"The WeatherAPI key not set, unable to get weather! Set the WeatherAPI key in the resource manifest!");
                 return "CLEAR";
             }
             await Delay(1000);
-            TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Requesting weather for {location}!");
+            TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),4,$"Requesting weather for {location}!");
             try
             {
                 var request = new Request();
@@ -66,13 +66,13 @@ namespace WeatherSyncServer.Classes
                 if (responseData.weather.Count != 0)
                 {
                     weatherResult = WeatherApi.GetGtaWeatherFromId(responseData.weather[0].id);
-                    TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),4,$"Weather received for {location}! Setting server weather to {weatherResult}");
+                    TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),4,$"Weather received for {location}! Setting server weather to {weatherResult}");
                 } else throw new Exception("Weather result contains no weather data");
             }
             catch (Exception e)
             {
-                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),1,$"Unable to process WeatherAPI request!");
-                TriggerEvent("FiveSPN-ServerLogToServer", API.GetCurrentResourceName(),1,e.Message);
+                TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),1,$"Unable to process WeatherAPI request!");
+                TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),1,e.Message);
                 weatherResult = "CLEAR";
             }
             return weatherResult;
