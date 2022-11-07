@@ -29,6 +29,9 @@ Using either a zip code, or a city name, add it to the variable in the resource 
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
+## Discord
+[Join the project discord at itsthenom.com](http://itsthenom.com/)
+
 ## Licenses
 
 In the hopes that the greater community may benefit, you may use this code under the [GNU Affero General Public License v3.0](LICENSE). 
