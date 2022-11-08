@@ -16,4 +16,4 @@ jobs:
         dst_path: resources/[FiveSPN]/
         dst_owner: SourPatchNom
         dst_repo_name: FiveSPN---Suite
-        commit_message: FiveSPN-Logger Update
+        commit_message: FiveSPN-Weather Update
