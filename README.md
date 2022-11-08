@@ -1,6 +1,8 @@
-# FiveSPN---WeatherSync
+# FiveSPN---Weather
 
-Sync your game server weather between all players and to a real world location! Can also be manually overriden by an admin from in the server for special needs.
+![FiveSPN-Weather Banner](https://cdn.discordapp.com/attachments/793012996690804766/1039349079358050365/fspnweather.png)
+
+FiveSPN-Weather is a FiveM resource that syncs the game server weather between all players to a real world location or overriden to an admin defined type using in game commands.
 
 ## Prerequisites
 
@@ -25,12 +27,34 @@ start FiveSPN-WeatherSync
 
 Using either a zip code, or a city name, add it to the variable in the resource manifest.
 
+## Server Commands
+
+```
+/Weather REFRESH - Forces a server wide refresh of weather.
+/Weather RESET - Resumes using real world sync.
+/Weather CLEAR - Sets weather to clear.
+/Weather THUNDER - Sets weather to thunderstorms.
+/Weather RAIN - Sets weather to rain.
+/Weather SNOWLIGHT - Sets weather to light snow.
+/Weather SNOW - Sets weather to snow.
+/Weather BLIZZARD - Sets weather to blizzard.
+/Weather FOGGY - Sets weather to foggy.
+/Weather EXTRASUNNY - Sets weather to extra sunny.
+/Weather CLOUDS - Sets weather to clouds.
+/Weather OVERCAST - Sets weather to overcast.
+/Weather SMOG - Sets weather to smog.
+/Weather INTERVAL # - Set the minutes between updates. 
+/Weather CITY 'NAME' - Set the location to a city name for the real world information. Visit OpenWeatherMap.org for information on locations.
+/Weather ID ##### - Set the location to a city id number for the real world information. Visit OpenWeatherMap.org for information on locations.
+/Weather ZIP ##### - Set the location to a zip code for the real world information. Visit OpenWeatherMap.org for information on locations.
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Discord
-[Join the project discord at itsthenom.com](http://itsthenom.com/)
+FiveM development can be even more amazing if we work together to grow the open source community! Lets Collab! Join the project discord at [itsthenom.com!](http://itsthenom.com/)
 
 ## Licenses
 
@@ -40,7 +64,7 @@ This resource distribution utilizes the [Newtonsoft.JSON Library](https://github
 
 This software references the CitizenFX.Core.Server and CitizenFX.Core.Client nuget packages (c) 2017-2020 the CitizenFX Collective used under [license](https://github.com/citizenfx/fivem/blob/master/code/LICENSE) and under the [FiveM Service Agreement](https://fivem.net/terms)
 
-FiveM can be even more amazing if we work together to grow the community! Check it out [here](https://fivem.net/)
+Never heard of FiveM? Learn more about the CitizenFX FiveM project [here](https://fivem.net/)
 
 ## Credits
 * <b>Sloosecannon</b> for inspiration and rubber ducky assistance during the initial conception of all this in 2020.
