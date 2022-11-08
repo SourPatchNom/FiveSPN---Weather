@@ -182,9 +182,9 @@ namespace WeatherSyncServer
 
         private async Task OnTick()
         {
-            if (((DateTime.Now - _lastUpdateTime).Minutes > _refreshRate || _forceUpdate) && !_currentlyUpdating)
+            if (_currentlyUpdating) return;
+            if ((DateTime.Now - _lastUpdateTime).Minutes > _refreshRate || _forceUpdate)
             {
-                string newWeather = ""; 
                 lock (_weatherLock)
                 {
                     _currentlyUpdating = true;
@@ -192,15 +192,8 @@ namespace WeatherSyncServer
                     _forceUpdate = false;
                     TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),4,"Updating the weather.");
                 }
-                if (!_forceWeather)
-                {
-                    newWeather = await WeatherApiRequest.Instance.GetGtaWeatherForLocation(_weatherLocation,_weatherApiKey,_weatherApiCallType);
-                }
-                else
-                {
-                    newWeather = _forceWeatherType;
-                    TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),4,$"Weather is overriden by {_forceWeatherSource} and set to {_forceWeatherType}.");
-                }
+                
+                var newWeather = await GetWeatherString();
 
                 if (newWeather != _serverWeather)
                 {
@@ -215,6 +208,18 @@ namespace WeatherSyncServer
                 }
             }
             await Task.FromResult(0);
+        }
+
+        private async Task<string> GetWeatherString()
+        {
+            if (!_forceWeather)
+            {
+                return await WeatherApiRequest.Instance.GetGtaWeatherForLocation(_weatherLocation,_weatherApiKey,_weatherApiCallType);
+            }
+                
+            TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),4,$"Weather is overriden by {_forceWeatherSource} and set to {_forceWeatherType}.");
+            return _forceWeatherType;
+            
         }
     }
 }
