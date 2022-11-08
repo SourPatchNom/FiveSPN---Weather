@@ -38,6 +38,10 @@ In the hopes that the greater community may benefit, you may use this code under
 
 This resource distribution utilizes the [Newtonsoft.JSON Library](https://github.com/JamesNK/Newtonsoft.Json) under the [MIT License](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md).
 
+This software references the CitizenFX.Core.Server and CitizenFX.Core.Client nuget packages (c) 2017-2020 the CitizenFX Collective used under [license](https://github.com/citizenfx/fivem/blob/master/code/LICENSE) and under the [FiveM Service Agreement](https://fivem.net/terms)
+
+FiveM can be amazing if we work together to grow the community! Check it out [here](https://fivem.net/)
+
 ## Credits
 * <b>Sloosecannon</b> for inspiration and rubber ducky assistance during the initial conception of all this in 2020.
 * <b>AGHMatti</b> I think... for reference on the http helper, really wish I could locate the source repo now.
