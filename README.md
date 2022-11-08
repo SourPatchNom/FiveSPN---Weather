@@ -40,7 +40,7 @@ This resource distribution utilizes the [Newtonsoft.JSON Library](https://github
 
 This software references the CitizenFX.Core.Server and CitizenFX.Core.Client nuget packages (c) 2017-2020 the CitizenFX Collective used under [license](https://github.com/citizenfx/fivem/blob/master/code/LICENSE) and under the [FiveM Service Agreement](https://fivem.net/terms)
 
-FiveM can be amazing if we work together to grow the community! Check it out [here](https://fivem.net/)
+FiveM can be even more amazing if we work together to grow the community! Check it out [here](https://fivem.net/)
 
 ## Credits
 * <b>Sloosecannon</b> for inspiration and rubber ducky assistance during the initial conception of all this in 2020.
