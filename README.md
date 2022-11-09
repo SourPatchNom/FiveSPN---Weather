@@ -6,7 +6,7 @@ FiveSPN-Weather is a FiveM resource that syncs the game server weather between a
 
 ## Prerequisites
 
-For best performance and monitoring, make sure the FiveSPN--Logger resource is utilized properly. This resource is available in the [Full Suite](https://github.com/SourPatchNom/FiveSPN---Suite) or from the [Source](https://github.com/SourPatchNom/FiveSPN---Logger)
+For best performance and monitoring, make sure the FiveSPN--Logger resource is running on your server. This resource is available in the [Full Suite](https://github.com/SourPatchNom/FiveSPN---Suite) or from the [Source](https://github.com/SourPatchNom/FiveSPN---Logger)
 
 ## Installation
 
