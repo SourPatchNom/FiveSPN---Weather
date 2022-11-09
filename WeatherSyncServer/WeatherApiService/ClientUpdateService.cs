@@ -4,32 +4,36 @@ using CitizenFX.Core;
 
 namespace WeatherSyncServer.WeatherApiService
 {
-    public static class ClientUpdateService
+    public class ClientUpdateService
     {
-        private static int _clientRefreshRate = 5;
-        private static bool _updateRequested;
-        private static DateTime _clientLastUpdate = DateTime.Now.AddYears(-1);
+        private static readonly Lazy<ClientUpdateService> instance = new Lazy<ClientUpdateService>(() => new ClientUpdateService());
+        private ClientUpdateService(){}
+        public static ClientUpdateService Instance => instance.Value;
+        
+        private int _clientRefreshRate = 5;
+        private bool _updateRequested;
+        private DateTime _clientLastUpdate = DateTime.Now.AddYears(-1);
 
         /// <summary>
         /// Requests a forced update of the clients on the server.
         /// </summary>
-        public static void RequestUpdate() => _updateRequested = true;
+        public void RequestUpdate() => _updateRequested = true;
         
         /// <summary>
         /// Sets the client refresh rate.
         /// </summary>
         /// <param name="rate">Minutes between refresh.</param>
-        public static void SetRefreshRate(int rate) => _clientRefreshRate = rate;
+        public void SetRefreshRate(int rate) => _clientRefreshRate = rate;
         
         /// <summary>
         /// Updates the clients of weather states on refresh rate interval.
         /// </summary>
-        public static async Task ClientUpdateTick()
+        public async Task ClientUpdateTick()
         {
             if (_clientLastUpdate.AddMinutes(_clientRefreshRate) < DateTime.Now || _updateRequested)
             {
                 _clientLastUpdate = DateTime.Now;
-                BaseScript.TriggerClientEvent("FiveSPN-UpdateClientWx",WeatherStateService.GetClientJsonWeatherPoints());
+                BaseScript.TriggerClientEvent("FiveSPN-UpdateClientWx",WeatherStateService.Instance.GetClientJsonWeatherPoints());
                 _updateRequested = false;
             }
 

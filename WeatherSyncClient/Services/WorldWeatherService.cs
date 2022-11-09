@@ -5,23 +5,27 @@ using Newtonsoft.Json;
 
 namespace WeatherSyncClient.Services
 {
-    public static class WorldWeatherService
+    public sealed class WorldWeatherService
     {
-        private static readonly List<Tuple<string, Vector3>> WorldWeatherStates = new List<Tuple<string, Vector3>>();
-        private static readonly object UpdateLock = new object();
+        private static readonly Lazy<WorldWeatherService> instance = new Lazy<WorldWeatherService>(() => new WorldWeatherService());
+        private WorldWeatherService(){}
+        public static WorldWeatherService Instance => instance.Value;
+
+        private readonly List<Tuple<string, Vector3>> _worldWeatherStates = new List<Tuple<string, Vector3>>();
+        private readonly object _updateLock = new object();
         
         /// <summary>
         /// Update the world weather point information with a json string from the server.
         /// </summary>
         /// <param name="json">World weather position data.</param>
-        public static void UpdateWorldWeatherStates(string json)
+        public void UpdateWorldWeatherStates(string json)
         {
-            lock (UpdateLock)
+            lock (_updateLock)
             {
                 var data = JsonConvert.DeserializeObject<List<Tuple<string, List<float>>>>(json);
                 if (data == null) return;
-                WorldWeatherStates.Clear();
-                data.ForEach(x => WorldWeatherStates.Add(new Tuple<string, Vector3>(x.Item1, new Vector3(x.Item2[0], x.Item2[1], x.Item2[2]))));
+                _worldWeatherStates.Clear();
+                data.ForEach(x => _worldWeatherStates.Add(new Tuple<string, Vector3>(x.Item1, new Vector3(x.Item2[0], x.Item2[1], x.Item2[2]))));
             }
         }
 
@@ -30,13 +34,13 @@ namespace WeatherSyncClient.Services
         /// </summary>
         /// <param name="position">Position of desired weather.</param>
         /// <returns>Weather string for position.</returns>
-        public static string GetWorldDesiredWeather(Vector3 position)
+        public string GetWorldDesiredWeather(Vector3 position)
         {
-            lock (UpdateLock)
+            lock (_updateLock)
             {
                 var shortestString = "CLEAR";
                 var shortestDistance = float.MaxValue;
-                foreach (var weatherState in WorldWeatherStates)
+                foreach (var weatherState in _worldWeatherStates)
                 {
                     var distance = Vector3.DistanceSquared(position, weatherState.Item2);
                     if (distance > shortestDistance) continue;

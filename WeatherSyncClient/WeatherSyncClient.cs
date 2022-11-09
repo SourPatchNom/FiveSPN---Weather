@@ -6,7 +6,7 @@ using WeatherSyncClient.Services;
 
 namespace WeatherSyncClient
 {
-public class WeatherSyncClient : BaseScript
+public sealed class WeatherSyncClient : BaseScript
     {
         public WeatherSyncClient()
         {
@@ -14,7 +14,7 @@ public class WeatherSyncClient : BaseScript
             EventHandlers.Add("playerSpawned", new Action<Vector3>(OnPlayerSpawned));
             EventHandlers["FiveSPN-UpdateClientWx"] += new Action<string>(ReceiveWeather);
             EventHandlers["FiveSPN-ReplyToClientWx"] += new Action<string>(ReceiveReply);
-            Tick += ClientWeatherService.WeatherTick;
+            Tick += ClientWeatherService.Instance.WeatherTick;
             RegisterWxCommands();
         }
 
@@ -33,7 +33,7 @@ public class WeatherSyncClient : BaseScript
         /// <param name="jsonString"></param>
         private static void ReceiveWeather(string jsonString)
         {
-            WorldWeatherService.UpdateWorldWeatherStates(jsonString);
+            WorldWeatherService.Instance.UpdateWorldWeatherStates(jsonString);
         }
 
         /// <summary>
@@ -90,8 +90,8 @@ public class WeatherSyncClient : BaseScript
          {
              API.RegisterCommand("RefreshWeather", new Action<int, List<object>, string>((source, args, raw) =>
              {
-                 //TriggerServerEvent("FiveSPN-WX-RequestUpdate");
-                 ClientWeatherService.ForceUpdate();
+                 TriggerServerEvent("FiveSPN-WX-RequestUpdate");
+                 ClientWeatherService.Instance.ForceUpdate();
              }), false);
              
              API.RegisterCommand("Weather", new Action<int, List<object>, string>((source, args, raw) =>

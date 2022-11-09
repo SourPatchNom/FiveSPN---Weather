@@ -16,7 +16,7 @@ namespace WeatherSyncServer.Classes
         {
             ApiRequestString = apiRequestString;
             Position = position;
-            LastUpdate = DateTime.Now;
+            LastUpdate = DateTime.Now.AddDays(-1);
             Weather = "CLEAR";
         }
 

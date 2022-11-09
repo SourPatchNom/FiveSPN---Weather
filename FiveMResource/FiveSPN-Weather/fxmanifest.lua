@@ -8,6 +8,7 @@ url 'https://itsthenom.com'
 
 weather_api_key '' -- Put your API key here!
 refresh_rate '5' -- Time in minutes between weather updates.
+verbose_logs 'false'
 
 games { 'gta5' }
 

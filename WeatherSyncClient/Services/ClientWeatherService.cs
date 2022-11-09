@@ -6,24 +6,28 @@ using WeatherSyncClient.Extensions;
 
 namespace WeatherSyncClient.Services
 {
-    public static class ClientWeatherService
+    public sealed class ClientWeatherService
     {
-        private static DateTime _lastUpdate = DateTime.Now;
-        private static Weather _desiredWeather = Weather.Clear;
-        private static bool _forceUpdate = false;
+        private static readonly Lazy<ClientWeatherService> instance = new Lazy<ClientWeatherService>(() => new ClientWeatherService());
+        private ClientWeatherService(){}
+        public static ClientWeatherService Instance => instance.Value;
+        
+        private DateTime _lastUpdate = DateTime.Now;
+        private Weather _desiredWeather = Weather.Clear;
+        private bool _forceUpdate = false;
 
-        public static void ForceUpdate() => _forceUpdate = true;
+        public void ForceUpdate() => _forceUpdate = true;
         
         /// <summary>
         /// Monitors and updates player weather on the server based on world weather data provided by the server.
         /// </summary>
-        public static async Task WeatherTick()
+        public async Task WeatherTick()
         {
             if (_lastUpdate.AddMinutes(1) < DateTime.Now || _forceUpdate)
             {
                 _forceUpdate = false;
                 _lastUpdate = DateTime.Now;
-                _desiredWeather = GtaWeatherExtensions.GetWeatherFromString(WorldWeatherService.GetWorldDesiredWeather(API.GetEntityCoords(API.GetPlayerPed(-1), false)));
+                _desiredWeather = GtaWeatherExtensions.GetWeatherFromString(WorldWeatherService.Instance.GetWorldDesiredWeather(API.GetEntityCoords(API.GetPlayerPed(-1), false)));
                 if (_desiredWeather != World.Weather)
                 {
                     World.TransitionToWeather(_desiredWeather, 45f);
