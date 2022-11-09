@@ -47,18 +47,19 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Classes\WeatherApi.cs" />
-        <Compile Include="Classes\WeatherApiRequest.cs" />
-        <Compile Include="Enums\WeatherApiCallType.cs" />
-        <Compile Include="HttpHelper.cs" />
+        <Compile Include="Classes\HttpHelper.cs" />
+        <Compile Include="Classes\WeatherPoint.cs" />
+        <Compile Include="Extensions\GtaWeatherExtensions.cs" />
+        <Compile Include="WeatherApiService\Classes\LocationsJson.cs" />
+        <Compile Include="WeatherApiService\Classes\WeatherResponseData.cs" />
+        <Compile Include="WeatherApiService\ClientUpdateService.cs" />
+        <Compile Include="WeatherApiService\WeatherApiRequestService.cs" />
+        <Compile Include="WeatherApiService\WeatherStateService.cs" />
         <Compile Include="WeatherSyncServer.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Http" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

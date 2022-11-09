@@ -1,25 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace WeatherSyncServer.Classes
+﻿namespace WeatherSyncServer.Extensions
 {
-    public static class WeatherApi
+    public static class GtaWeatherExtensions
     {
-
-        /// <summary>
-        /// Class used to deserialize the weather from the weather api
-        /// </summary>
-        public class WeatherResponseData
-        {
-            public class Weather
-            {
-                public int id;
-                public string main;
-                public string description;
-            }
-
-            public List<Weather> weather;
-        }
-        
         /// <summary>
         /// Returns the GTA weather string from the weather api int
         /// </summary>
@@ -93,9 +75,9 @@ namespace WeatherSyncServer.Classes
                 case 962:
                     return "THUNDER";
                 case 741: //fog
-                    return "FOGGY";
                 case 701: //mist
                 case 711: //smoke
+                    return "FOGGY";
                 case 721: //haze
                     return "SMOG";
                 default:

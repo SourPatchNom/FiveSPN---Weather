@@ -36,12 +36,18 @@
           <HintPath>..\packages\CitizenFX.Core.Client.1.0.4324\lib\net45\CitizenFX.Core.Client.dll</HintPath>
           <Private>True</Private>
         </Reference>
+        <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+          <HintPath>..\packages\Newtonsoft.Json.13.0.2-beta2\lib\net45\Newtonsoft.Json.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Extensions\GtaWeatherExtensions.cs" />
+        <Compile Include="Services\ClientWeatherService.cs" />
+        <Compile Include="Services\WorldWeatherService.cs" />
         <Compile Include="WeatherSyncClient.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>

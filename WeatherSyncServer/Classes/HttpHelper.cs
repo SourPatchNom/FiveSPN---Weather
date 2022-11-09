@@ -6,7 +6,7 @@ using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using Newtonsoft.Json;
 
-namespace WeatherSyncServer
+namespace WeatherSyncServer.Classes
 {
     public struct RequestResponse
     {
