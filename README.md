@@ -25,9 +25,9 @@ start FiveSPN-WeatherSync
 
 ### Step Three: Add the source location to the locations.json file.
 
-Using either a zip code, city id, or city name, add your source location to the locations.json file.
+Using either a zip code, city id, or city name, add up to foud source location to the locations.json file. You can add just one type or mix and match!
 
-Default locations are Seattle, WA for Paleto, Phoenix for Blaine County, and Los Angeles for Los Santos.  
+Default locations are Seattle, WA for the northwest, Phoenix for the desert areas, and Pasadena (LA) for the big city!  
 
 Using City Name
 ```javascript
