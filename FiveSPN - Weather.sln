@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherSyncClient", "WeatherSyncClient\WeatherSyncClient.csproj", "{9690DDD0-E21F-4267-8E76-F07C9C9E470E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherSyncClient", "src\WeatherSyncClient\WeatherSyncClient.csproj", "{9690DDD0-E21F-4267-8E76-F07C9C9E470E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherSyncServer", "WeatherSyncServer\WeatherSyncServer.csproj", "{B88A8EB2-0078-4673-955A-AA5C08876551}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherSyncServer", "src\WeatherSyncServer\WeatherSyncServer.csproj", "{B88A8EB2-0078-4673-955A-AA5C08876551}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
