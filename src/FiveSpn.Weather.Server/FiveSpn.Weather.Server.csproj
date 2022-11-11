@@ -51,6 +51,7 @@
         <Compile Include="LocalServices\Classes\LocationsJson.cs" />
         <Compile Include="LocalServices\ClientUpdateService.cs" />
         <Compile Include="LocalServices\WeatherStateService.cs" />
+        <Compile Include="WeatherApiService\Classes\WeatherIdResult.cs" />
         <Compile Include="WeatherApiService\Classes\WeatherResponseData.cs" />
         <Compile Include="WeatherApiService\WeatherApiRequestService.cs" />
         <Compile Include="WeatherSyncServer.cs" />

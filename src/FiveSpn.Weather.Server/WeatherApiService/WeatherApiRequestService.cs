@@ -36,15 +36,13 @@ namespace FiveSpn.Weather.Server.WeatherApiService
         /// <param name="callString">call string for the owm api</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<string> GetGtaWeatherForLocation(string callString)
+        public async Task<WeatherIdResult> GetWeatherIdForLocation(string callString)
         {
-            string weatherResult;
             if (_apiKey == "" || _apiKey == "NONE")
             {
-                BaseScript.TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),0,"The WeatherAPI key not set, unable to get weather! Set the WeatherAPI key in the resource manifest!");
-                return "CLEAR";
+                return new WeatherIdResult(false, "The WeatherAPI key not set, unable to get weather! Set the WeatherAPI key in the resource manifest!",0);
             }
-            if (_verboseLogging) BaseScript.TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),5,$"Requesting weather for {callString}!");
+            if (_verboseLogging) Console.WriteLine($">>>>Requesting weather for {callString}!");
             try
             {
                 var request = new Request();
@@ -53,21 +51,14 @@ namespace FiveSpn.Weather.Server.WeatherApiService
                 var json = response.content;
                 var responseData = JsonConvert.DeserializeObject<WeatherResponseData>(json);
                 if (responseData == null) throw new Exception("Weather result is NULL");
-                if (responseData.weather.Count != 0)
-                {
-                    weatherResult =  GtaWeatherExtensions. GetGtaWeatherFromApiId(responseData.weather[0].id);
-                    if (_verboseLogging) BaseScript.TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),5,$"Weather received for {callString} - {weatherResult}");
-                } else throw new Exception("Weather result contains no weather data");
+                if (responseData.weather.Count == 0) throw new Exception("Weather result contains no weather data");
+                if (_verboseLogging) Console.WriteLine($">>>>Weather id received for {callString} - {responseData.weather[0].id}");
+                return new WeatherIdResult(true, $"Weather API id data received for {callString}!", responseData.weather[0].id);
             }
             catch (Exception e)
             {
-                BaseScript.TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),1,$"Unable to process WeatherAPI request!");
-                BaseScript.TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),1,e.Message);
-                weatherResult = "CLEAR";
+                return new WeatherIdResult(false, "Unable to process WeatherAPI request!\n"+e.Message,0);
             }
-            return weatherResult;
         }
-        
-        
     }
 }
