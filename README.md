@@ -18,30 +18,44 @@ start FiveSPN-WeatherSync
 
 ### Step Two: Get an Open Weather Map API key for your server.
 
-1. Goto https://openweathermap.org/
+1. Go to https://openweathermap.org/
 2. Register
 3. Navigate to the API key area and generate a key for each server you are using.
 4. Add the key to the FiveSPN-Weather resource manifest.
 
 ### Step Three: Add the source location to the locations.json file.
 
-Using either a zip code, city id, or city name, add up to foud source location to the locations.json file. You can add just one type or mix and match!
+Using either a zip code, city id, city name, or weather string, add up to ten weather points in the locations.json file. You can add just one type or mix and match!
 
-Default locations are Seattle, WA for the northwest, Phoenix for the desert areas, and Pasadena (LA) for the big city!  
+Default locations are Seattle, WA for the northwest, Phoenix for the desert areas, and Pasadena (LA) for the big city, with snow on top of the big mountain!  
+
+The three pieces of information are in each line of the locations.json are:
+1. Location or Weather String.
+   * [Cities] City name text string. IE "Dallas", "Reno", "Denver"
+   * [Zips] Zip code numeral. IE 90210
+   * [Ids] City Id code numeral. This is useful for complicated city names!
+     * Can be found [here](https://openweathermap.org/find) by searching and looking at url on city page 
+     * Can be found [here](http://bulk.openweathermap.org/sample/) in current city list if you can decipher json.
+   * [Forced] Weather string. This lets you permanently set a weather type for an area.
+2. The X/Y/Z coordinates of the point.
+3. The range for the weather. Leave the range at 0 to extend against all other points. (If no points are 0, the weather will be clear when not in a ranged point)
 
 Using City Name
 ```javascript
 {
     "Cities": [
-        ["Seattle", -165.17, 6052.23, 80.03],
-        ["Phoenix", 1398.82, 3977.76, 324.74],
-        ["Pasadena", -353.02, 523.95, 523.95]
+        ["Seattle", -165.17, 6052.23, 80.03, 0],
+        ["Phoenix", 1398.82, 3977.76, 324.74, 0],
+        ["Pasadena", -353.02, 523.95, 523.95, 0]
     ],
     "Zips": [
         
     ],
     "Ids": [
         
+    ],
+    "Forced": [
+        ["SNOW", 491.32,5580.2,792.42, 350]
     ]
 }
 ```
@@ -53,17 +67,20 @@ Using Zip
 
     ],
     "Zips": [
-        [98101, -165.17, 6052.23, 80.03],
-        [85323, 1398.82, 3977.76, 324.74],
-        [90001, -353.02, 523.95, 523.95]
+        [98101, -165.17, 6052.23, 80.03, 0],
+        [85323, 1398.82, 3977.76, 324.74, 0],
+        [90001, -353.02, 523.95, 523.95, 0]
     ],
     "Ids": [
 
+    ],
+    "Forced": [
+        ["SNOW", 491.32,5580.2,792.42, 350]
     ]
 }
 ```
 
-Using City Id (Find a cities id [here](https://openweathermap.org/find) by searching, then going to the city page and looking at url)
+Using City Id
 ```javascript
 {
     "Cities": [
@@ -73,9 +90,12 @@ Using City Id (Find a cities id [here](https://openweathermap.org/find) by searc
         
     ],
     "Ids": [
-        [5809844, -165.17, 6052.23, 80.03],
-        [5308655, 1398.82, 3977.76, 324.74],
-        [5368361, -353.02, 523.95, 523.95]
+        [5809844, -165.17, 6052.23, 80.03, 0],
+        [5308655, 1398.82, 3977.76, 324.74, 0],
+        [5368361, -353.02, 523.95, 523.95, 0]
+    ],
+    "Forced": [
+        ["SNOW", 491.32,5580.2,792.42, 350]
     ]
 }
 ```
