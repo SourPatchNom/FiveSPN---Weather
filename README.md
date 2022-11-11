@@ -36,9 +36,10 @@ The three pieces of information are in each line of the locations.json are:
    * [Ids] City Id code numeral. This is useful for complicated city names!
      * Can be found [here](https://openweathermap.org/find) by searching and looking at url on city page 
      * Can be found [here](http://bulk.openweathermap.org/sample/) in current city list if you can decipher json.
-   * [Forced] Weather string. This lets you permanently set a weather type for an area.
+   * [Forced] Weather string. This lets you permanently set a weather type for an area. (See below)
 2. The X/Y/Z coordinates of the point.
 3. The range for the weather. Leave the range at 0 to extend against all other points. (If no points are 0, the weather will be clear when not in a ranged point)
+
 
 Using City Name
 ```javascript
@@ -116,6 +117,21 @@ Using City Id
 /Weather CLOUDS - Sets weather to clouds.
 /Weather OVERCAST - Sets weather to overcast.
 /Weather SMOG - Sets weather to smog.
+```
+
+## Forced Weather Type Strings:
+```
+"CLEAR" - Sets weather to clear.
+"THUNDER" - Sets weather to thunderstorms.
+"RAIN" - Sets weather to rain.
+"SNOWLIGHT" - Sets weather to light snow.
+"SNOW" - Sets weather to snow.
+"BLIZZARD" - Sets weather to blizzard.
+"FOGGY" - Sets weather to foggy.
+"EXTRASUNNY" - Sets weather to extra sunny.
+"CLOUDS" - Sets weather to clouds.
+"OVERCAST" - Sets weather to overcast.
+"SMOG" - Sets weather to smog.
 ```
 
 ## Contributing
