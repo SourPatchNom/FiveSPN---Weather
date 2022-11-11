@@ -13,14 +13,15 @@ verbose_logs 'false'
 games { 'gta5' }
 
 server_script {
-	"WeatherSyncServer.net.dll",
+	"FiveSpn.Weather.Server.net.dll",
 }
 
 client_script {
-	"WeatherSyncClient.net.dll",
+	"FiveSpn.Weather.Client.net.dll",
 }
 
 files {
+	"FiveSpn.Weather.Library.dll",
 	"Newtonsoft.Json.dll"
 }
 
