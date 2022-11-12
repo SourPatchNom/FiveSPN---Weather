@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using FiveSpn.Weather.Server.LocalServices;
@@ -48,11 +49,16 @@ namespace FiveSpn.Weather.Server
             EventHandlers["FiveSPN-WX-SetOverride"] += new Action<Player, string>(SetOverride);
             EventHandlers["FiveSPN-WX-ClearOverride"] += new Action<Player>(ClearOverride);
             EventHandlers["FiveSPN-WX-RequestUpdate"] += new Action<Player>(RequestUpdate);
-            
+
+            StartTicks();
+        }
+
+        private async Task StartTicks()
+        {
             Tick += WeatherStateService.Instance.PointMonitorTick;
             Tick += WeatherStateService.Instance.PointQueueTick;
-            Delay(5000);
-            Tick += ClientUpdateService.Instance.ClientUpdateTick;
+            await Task.Delay(5000);
+            Tick += ClientUpdateService.Instance.ClientUpdateTick;         
         }
 
         private void SetOverride([FromSource]Player player, string newWeather)
