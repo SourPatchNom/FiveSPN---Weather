@@ -12,7 +12,7 @@ namespace FiveSpn.Weather.Server.LocalServices
         
         private int _clientRefreshRate = 5;
         private bool _updateRequested;
-        private DateTime _clientLastUpdate = DateTime.Now.AddYears(-1);
+        private DateTime _clientLastUpdate = DateTime.MinValue;
 
         /// <summary>
         /// Requests a forced update of the clients on the server.
