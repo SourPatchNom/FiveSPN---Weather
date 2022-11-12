@@ -104,7 +104,12 @@ Using City Id
 ## Admin Server Commands
 
 ```
-/Weather REFRESH - Forces a server wide refresh of weather.
+These can be used to test information and weather.
+/Weather DEBUG - Displays debug information. 
+/Weather SYNC - Forces a client weather sync. (Overrides the normal client side update delay)
+/Weather REFRESH - Requests the latest data from the server be sent to all players. (Overrides the normal server side update time delay)
+
+These can be used to update the weather server wide.
 /Weather RESET - Resumes using real world sync.
 /Weather CLEAR - Sets weather to clear.
 /Weather THUNDER - Sets weather to thunderstorms.
