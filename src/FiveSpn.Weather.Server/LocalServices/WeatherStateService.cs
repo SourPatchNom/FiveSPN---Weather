@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using FiveSpn.Weather.Library.Classes.WeatherPoint;
+using FiveSpn.Weather.Library.Extensions;
 using FiveSpn.Weather.Server.Classes;
 using FiveSpn.Weather.Server.LocalServices.Classes;
 using FiveSpn.Weather.Server.WeatherApiService;
@@ -141,7 +142,13 @@ namespace FiveSpn.Weather.Server.LocalServices
                 {
                     _lastQueuePop = DateTime.Now;
                     var point = _weatherPointQue.Dequeue();
-                    _weatherPoints.First(x => x.Position == point.Position).SetWeather(await WeatherApiRequestService.Instance.GetGtaWeatherForLocation(point.ApiRequestString));
+                    var result = await WeatherApiRequestService.Instance.GetWeatherIdForLocation(point.ApiRequestString);
+                    if (!result.WasSuccessful)
+                    {
+                        BaseScript.TriggerEvent("FiveSPN-LogToServer", API.GetCurrentResourceName(),2,$"An attempt to collect weather data from the weather API service was unsuccessful. " + result.WeatherRequestResult);
+                        return;
+                    }
+                    _weatherPoints.First(x => x.Position == point.Position).SetWeather(GtaWeatherExtensions.GetGtaWeatherFromApiId(result.WeatherApiTypeId));
                 }    
             }
 
