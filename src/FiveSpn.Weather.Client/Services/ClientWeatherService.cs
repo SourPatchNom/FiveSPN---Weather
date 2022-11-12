@@ -34,7 +34,15 @@ namespace FiveSpn.Weather.Client.Services
                     World.TransitionToWeather(_desiredWeather, 45f);
                 }
             }
+
+            if (_debugMode)
+            {
+                Screen.DisplayHelpTextThisFrame("FiveSPN-Weather DEBUG INFO\nCurrent Weather:"+World.Weather+"\nDesired Weather:"+_desiredWeather+"\nWeather Points:"+WorldWeatherService.Instance.GetWorldDebugDisplay());
+            }
+            
             await Task.FromResult("Complete");
         }
+
+        
     }
 }

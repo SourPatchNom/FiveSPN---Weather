@@ -60,5 +60,20 @@ namespace FiveSpn.Weather.Client.Services
                 return weatherString;
             }
         }
+
+        /// <summary>
+        /// Used to return debug information for display. 
+        /// </summary>
+        /// <returns>A formatted string from the current weather point data with coordinate and value.</returns>
+        public string GetWorldDebugDisplay()
+        {
+            string result = "\n";
+            foreach (var weatherPoint in _worldWeatherStates)
+            {
+                result += "\n" + weatherPoint.Weather + ":" + weatherPoint.Position[0] +"|"+ weatherPoint.Position[1] +"|"+ weatherPoint.Position[2] +":" + weatherPoint.Range;
+            }
+
+            return result;
+        }
     }
 }
