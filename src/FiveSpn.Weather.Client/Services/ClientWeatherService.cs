@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CitizenFX.Core;
 using CitizenFX.Core.Native;
+using CitizenFX.Core.UI;
 using FiveSpn.Weather.Library.Extensions;
 using GtaWeatherExtensions = FiveSpn.Weather.Client.Extensions.GtaWeatherExtensions;
 
@@ -15,9 +16,18 @@ namespace FiveSpn.Weather.Client.Services
         
         private DateTime _lastUpdate = DateTime.Now;
         private CitizenFX.Core.Weather _desiredWeather = CitizenFX.Core.Weather.Clear;
-        private bool _forceUpdate = false;
+        private bool _forceUpdate;
+        private bool _debugMode;
 
+        /// <summary>
+        /// Forces the local client to update on next tick.
+        /// </summary>
         public void ForceUpdate() => _forceUpdate = true;
+        
+        /// <summary>
+        /// Toggles the display of general client weather debug info.
+        /// </summary>
+        public void ToggleDebugInfo() => _debugMode = !_debugMode;
         
         /// <summary>
         /// Monitors and updates player weather on the server based on world weather data provided by the server.

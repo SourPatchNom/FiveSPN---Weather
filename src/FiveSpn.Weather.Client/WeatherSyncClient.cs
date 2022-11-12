@@ -30,7 +30,7 @@ public sealed class WeatherSyncClient : BaseScript
         /// <summary>
         /// Receives updates from the server for world weather.
         /// </summary>
-        /// <param name="jsonString"></param>
+        /// <param name="jsonString">List of WeatherPoints in json string</param>
         private static void ReceiveWeather(string jsonString)
         {
             WorldWeatherService.Instance.UpdateWorldWeatherStates(jsonString);
