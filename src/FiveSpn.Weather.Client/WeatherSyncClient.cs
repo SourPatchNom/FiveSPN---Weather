@@ -88,9 +88,15 @@ public sealed class WeatherSyncClient : BaseScript
          /// </summary>
          private static void RegisterWxCommands()
          {
+             //Force the server to update weather info to clients.
              API.RegisterCommand("RefreshWeather", new Action<int, List<object>, string>((source, args, raw) =>
              {
                  TriggerServerEvent("FiveSPN-WX-RequestUpdate");
+             }), false);
+             
+             //Force updates the local weather to the desired weather.
+             API.RegisterCommand("SyncWeather", new Action<int, List<object>, string>((source, args, raw) =>
+             {
                  ClientWeatherService.Instance.ForceUpdate();
              }), false);
              
@@ -102,8 +108,14 @@ public sealed class WeatherSyncClient : BaseScript
                          SendWeatherOptions();
                          break;
                      case 1:
-                         switch (args[0])
+                         switch (args[0].ToString().ToUpper())
                          {
+                             case "DEBUG":
+                                 ClientWeatherService.Instance.ToggleDebugInfo();
+                                 break;
+                             case "SYNC":
+                                 ClientWeatherService.Instance.ForceUpdate();
+                                 break;
                              case "REFRESH":
                                  TriggerServerEvent("FiveSPN-WX-RequestUpdate");
                                  SendDefaultChatMessage($"Attempting to refresh weather.");
